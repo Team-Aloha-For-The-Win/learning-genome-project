@@ -14,8 +14,12 @@ const [data, setData] = useState([]);
   }, []);
 
   MAPPING THROUGH PROPS IN A COMPONENT TO RENDER PASSED DATA
+ -this is an example of a basic component
 
-  export const Films = (props) => {
+
+export default function MakeThis(props) {
+
+  export const MappedItem = (props) => {
   return (
     <div className="d-flex justify-content-center">
       {props.keyName.map((key, idx) => (
@@ -26,6 +30,17 @@ const [data, setData] = useState([]);
     </div>
   );
 };
+
+return (
+    <div className="d-flex container">
+      <h3 className="display-4">{props.name}</h3>
+      <div>{props.keyName && <MappedItem keyName={props.keyName} />}</div>
+      <div>
+);
+
+}
+
+
 
 this provides renders a div container mapping through an array or object to render each piece of data
 
