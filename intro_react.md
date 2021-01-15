@@ -54,6 +54,21 @@ this provides renders a div container mapping through an array or object to rend
     passing data as props to the component script
 
 
+SEARCH BAR TEMPLATE
+
+-from app
+const handleSearch = (event) => {
+    event.persist();
+    const { value } = event.target;
+    const filteredPosts = sourceName.filter((post) => {
+      return post.username.toLowerCase().includes(value.toLowerCase());
+    });
+    const postsToUse = value ? filteredPosts : dummyData;
+    setPosts(postsToUse);
+  };
+
+
+
   NPM DEPENDENCIES FOR REACT PROJECTS
 
 npm install  //install app
@@ -63,6 +78,7 @@ npm i axios // install axios
 npm i bootstrap // install bootstrap
 npm i reactstrap react react-dom // install reactstrap react react-dom
 npm start // start the application on local host
+npx browserslist@latest --update-db //browser error fix
 
 WAYS TO USE BOOTSTRAP AND REACTSTRAP
 
