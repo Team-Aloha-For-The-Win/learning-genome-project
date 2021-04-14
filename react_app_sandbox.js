@@ -124,3 +124,84 @@ const CustomForm = () => {
     </form>
   );
 };
+
+
+//useYupValidation custom hook
+
+//initial logic concept - untested please review
+
+import {useState} from 'react';
+import * as yup from 'yup'
+import schemaValues from './schemaValues'
+
+export const useValidation = (initialErrorValues, schemaValues) => {
+
+const [values, setValues] = useState(initialErrorValues);
+
+
+const validateChange = (e) => {
+  e.persist();
+  if (login) {
+    //console.log(loginSchema, "login");
+    yup
+      .reach(schemaValues, e.target.name)
+      .validate(e.target.name)
+      .then((valid) => {
+        //console.log(valid);
+        setValues({
+          ...values,
+          [e.target.name]: "",
+        });
+      })
+      .catch((error) => {
+        setValues({ ...values, [e.target.name]: error.errors[0] });
+        console.log({ error });
+      });
+  }
+
+  return [values, setValues, validateChange ]
+
+};
+}
+
+// conditional validation snippet 
+
+const [formErrors, setErrors] = useState(initialErrorValues)
+
+const validateChange = (e) => {
+  e.persist();
+  if (login) {
+    //console.log(loginSchema, "login");
+    yup
+      .reach(loginSchema, e.target.name)
+      .validate(e.target.name)
+      .then((valid) => {
+        //console.log(valid);
+        setErrors({
+          ...formErrors,
+          [e.target.name]: "",
+        });
+      })
+      .catch((error) => {
+        setErrors({ ...formErrors, [e.target.name]: error.errors[0] });
+        console.log({ error });
+      });
+  } else {
+    // console.log(signUpSchema, "signup");
+    yup
+      .reach(signUpSchema, e.target.name)
+
+      .validate(e.target.name)
+      .then((valid) => {
+        //console.log(valid);
+        setErrors({
+          ...formErrors,
+          [e.target.name]: "",
+        });
+      })
+      .catch((error) => {
+        setErrors({ ...formErrors, [e.target.name]: error.errors[0] });
+        console.log({ error });
+      });
+  }
+};
